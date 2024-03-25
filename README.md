@@ -5,3 +5,6 @@ Welcome to the `Machine-Learning` repository!
 
 - `FBlocation.py`: This file contains code related to Facebook location analysis. It utilizes the Facebook Graph API to retrieve location data and perform various analyses on user check-ins and location-based activities.
 
+- `Random Forest.ipynb`:This project analyzes flight data in the USA from 2018 to 2022 to build a machine learning model that predicts flight disruptions (cancellations, diversions, or delays).
+
+
