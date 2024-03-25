@@ -7,4 +7,7 @@ Welcome to the `Machine-Learning` repository!
 
 - `Random Forest.ipynb`:This project analyzes flight data in the USA from 2018 to 2022 to build a machine learning model that predicts flight disruptions (cancellations, diversions, or delays).
 
+-  `Multivariate.R`:Crab age prediction project employing PCA, k-means clustering, and decision tree modeling in R.
+
+
 
