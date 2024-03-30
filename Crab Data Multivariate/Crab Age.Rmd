@@ -1,3 +1,19 @@
+---
+title: "Crab Age Prediction Appendix: R Markdown"
+author: "200018630 - Group 4"
+date: "March 30, 2024"
+output: pdf_document
+---
+
+## Introduction
+
+This document presents an analysis for predicting the age of crabs using various statistical techniques and data visualization methods. The analysis involves data preprocessing, exploratory data analysis (EDA), dimensionality reduction, clustering, and decision tree model.
+
+### Library Import
+
+Import the necessary libraries. 
+
+```{r setup, include=TRUE}
 library(dplyr)
 library(GGally)
 library(aplpack)
@@ -5,69 +21,107 @@ library(corrplot)
 library(rpart)
 library(rpart.plot)
 library(factoextra)
+```
 
-# 2. Data Preparation
-# Set working directory
+### Data Preparation
+
+Load data, set directory, and preprocess:
+
+```{r data-preparation, include=TRUE}
 folder_path <- file.path(dirname(rstudioapi::getSourceEditorContext()$path), "/Group Project ")
 setwd(folder_path)
 
 # Load and preprocess data
 Crab_Data <- read.csv('CrabAgePrediction.csv') 
 Crab_Data <- Crab_Data %>%
-  mutate(Sex = as.factor(Sex)) %>%  # Ensure Sex is a factor
-  mutate(Female = as.integer(Sex == 'F'),  # Create binary column for Female
-         Male = as.integer(Sex == 'M'),    # Create binary column for Male
-         Indeterminate = as.integer(Sex == 'I'))  # Create binary column for Infant
+  mutate(Sex = as.factor(Sex)) %>%  # binary column
+  mutate(Female = as.integer(Sex == 'F'),  
+         Male = as.integer(Sex == 'M'),   
+         Indeterminate = as.integer(Sex == 'I'))
+```
 
-# 3. Exploratory Data Analysis (EDA)
-# Correlation Matrix
+## Exploratory Data Analysis (EDA)
+
+### Correlation Matrix
+
+Correlation matrix of the numerical columns.
+
+```{r correlation-matrix, include=TRUE}
 Crab_Data_Corr <- Crab_Data[, sapply(Crab_Data, is.numeric)]
 corrplot(cor(Crab_Data_Corr), method = 'circle')
+```
 
-# Scatterplot Matrix 
+### Scatterplot Matrix
+
+Scatterplot matrix to understand pairwise relationship between variables:
+
+```{r scatterplot-matrix, include=TRUE}
 set.seed(123)
 sample_size <- 30 # Sample
 Crab_Data_Sample <- Crab_Data_Corr[sample(1:nrow(Crab_Data), sample_size), ]
 pairs(Crab_Data_Sample)
-# pairs(Crab_Data_Corr) # Whole Dataset
+```
 
-# Parallel Coordinates & Chernoff Faces
+### Parallel Coordinates & Chernoff Faces
+
+Parallel Coordinates and Chernoff Faces are used for multivariate data visualization:
+
+```{r parallel-coordinates-chernoff-faces, include=TRUE}
 Crab_Data_Sample_Norm <- as.data.frame(scale(Crab_Data_Sample))
 
 ggparcoord(data = Crab_Data_Sample_Norm %>% select_if(is.numeric), 
            groupColumn = NULL) 
 faces(Crab_Data_Sample_Norm)
+```
 
+### Multidimensional Scaling (MDS) and PCA
+
+Multidimensional Scaling (MDS) and Principal Component Analysis (PCA) to visualize the data in lower dimensions:
+
+```{r mds-pca, include=TRUE}
 # MDS
 dist_matrix <- dist(Crab_Data_Sample_Norm)  # Distance matrix
 mds_result <- cmdscale(dist_matrix)  # Apply MDS
-plot(mds_result[,1], mds_result[,2], xlab="Dimension 1", ylab="Dimension 2", main="Sample MDS Plot", type="n")
+plot(mds_result[,1], mds_result[,2], xlab="Dimension 1", ylab="Dimension 2", 
+     main="Sample MDS Plot", type="n")
 text(mds_result[,1], mds_result[,2])
 
 Crab_Data_PCA_Sample <- prcomp(Crab_Data_Sample, scale. = TRUE)
 pca_scores <- Crab_Data_PCA_Sample$x[, 1:2] 
 plot(pca_scores, main = 'Sample PCA Biplot', type="n")  
 text(pca_scores[,1], pca_scores[,2])
+```
 
-# 4. Dimensionality Reduction and Clustering
+## Dimensionality Reduction and Clustering
+
+Perform PCA on the full dataset and explore clustering techniques to identify data patterns:
+
+```{r dimensionality-reduction-clustering, include=TRUE}
 # PCA on Full Data
 Crab_Data_PCA <- prcomp(Crab_Data_Corr, scale. = TRUE)
 biplot(Crab_Data_PCA, main = 'PCA Biplot')
 
-# Calculate the proportion of variance explained by each principal component
+# Proportion of variance explained by each PCs
 variance_explained <- Crab_Data_PCA$sdev^2 / sum(Crab_Data_PCA$sdev^2)
 cumulative_variance <- cumsum(variance_explained)
-
-# Plot the cumulative variance to determine how many components to retain
-plot(cumulative_variance, xlab = "Number of Principal Components", ylab = "Cumulative Variance Explained",
+# Cumulative variance plot
+plot(cumulative_variance, xlab = "Number of Principal Components", 
+     ylab = "Cumulative Variance Explained",
      type = "b", pch = 19, main = "Cumulative Variance Explained by PCA Components")
 abline(h = 0.9, col = "red", lty = 2)  # Add a line at 90% variance explained for reference
 
 # K-means Clustering based on PCA
 Crab_Data_PCA_Reduced <- Crab_Data_PCA$x[, 1:2] # 2 PC
 kmeans_result <- kmeans(Crab_Data_PCA_Reduced, centers = 2)
-plot(Crab_Data_PCA_Reduced[, 1], Crab_Data_PCA_Reduced[, 2], col = kmeans_result$cluster, main = "K-means Clustering on PCA Results")
+plot(Crab_Data_PCA_Reduced[, 1], Crab_Data_PCA_Reduced[, 2], col = kmeans_result$cluster, 
+     main = "K-means Clustering on PCA Results")
+```
 
+### Optimal Clusters Visualization
+
+Use silhouette and elbow methods to determine the optimal number of clusters:
+
+```{r optimal-clusters-visualization, include=TRUE}
 # Visualize the average silhouette method
 fviz_nbclust(Crab_Data_PCA_Reduced, kmeans, method = "silhouette", k.max = 20) +
   ggtitle("Silhouette Method for Optimal Clusters - PCA")
@@ -78,30 +132,23 @@ fviz_nbclust(Crab_Data_PCA_Reduced, kmeans, method = "wss", k.max = 20) +
   ggtitle("Elbow Method for Optimal Clusters - PCA")
 fviz_nbclust(Crab_Data_Corr, kmeans, method = "wss", k.max = 20) +
   ggtitle("Elbow Method for Optimal Clusters")
+```
 
-# Sample compare
-# Hierarchical clustering
-hc_result <- hclust(dist_matrix)  # Apply hierarchical clustering
-plot(hc_result)  # Plot the dendrogram
-cutree(hc_result, k=3)  # Assuming you want to create 3 clusters
+## Model Building: Decision Tree
 
-fviz_nbclust(Crab_Data_Sample_Norm, kmeans, method = "silhouette", k.max = 20) +
-  ggtitle("Silhouette Method for Optimal Clusters - Sample")
+Build a decision tree model to predict crab age:
 
-# 5. Model Building: Decision Tree
-# Split Data into Training and Testing
+```{r model-building, include=TRUE}
 set.seed(123)
 train_indices <- sample(1:nrow(Crab_Data), 0.7 * nrow(Crab_Data))
 train_data <- Crab_Data[train_indices, ]
 test_data <- Crab_Data[-train_indices, ]
 
-# Build Decision Tree Model
 model <- rpart(Age ~ ., data = train_data, method = "anova")
 
-# Visualize the Decision Tree
+# Decision Tree Result
 rpart.plot(model, main="Decision Tree for Crab Age Prediction")
-
-# Model Evaluation
 predictions <- predict(model, test_data)
 rmse <- sqrt(mean((predictions - test_data$Age)^2))
 cat("RMSE on test data:", rmse, "\n")
+```
