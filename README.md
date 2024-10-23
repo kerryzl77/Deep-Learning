@@ -1,15 +1,32 @@
 Welcome to the `Machine-Learning` repository! 
 ## Files
 
-- `instacart-market-basket-analysis.py`: This file contains code for performing a market basket analysis on Instacart dataset. It includes algorithms and techniques to analyze customer purchase behavior and identify patterns.
+### NLP Projects
+This folder contains multiple NLP works from UC Berkeley's CS288 and Info 256 courses.
 
-- `FBlocation.py`: This file contains code related to Facebook location analysis. It utilizes the Facebook Graph API to retrieve location data and perform various analyses on user check-ins and location-based activities.
+- **Project 1: Neural POS Tagging (CS288)**  
+  Developed a BiLSTM-based Part-of-Speech (POS) tagger for grammatical structure prediction. Optimized performance compared to traditional HMM-based models.
 
-- `Random Forest.ipynb`:This project analyzes flight data in the USA from 2018 to 2022 to build a machine learning model that predicts flight disruptions (cancellations, diversions, or delays)
-  - Data Source: https://www.kaggle.com/datasets/robikscube/flight-delay-dataset-20182022
+- **Project 2: English-German Translation (CS288)**  
+  Implemented two models for machine translation: N-gram and Seq2Seq LSTM with attention. The Seq2Seq model outperformed N-gram, especially for handling long-range dependencies.
 
--  `Crab Age.Rmd`:Crab age prediction project employing PCA, k-means clustering, and decision tree modeling in R
-   - Data Source: https://www.kaggle.com/datasets/sidhus/crab-age-prediction/data
+- **Info 256 Projects:**
+  - **Sentiment Classification:** Fine-tuned a BERT model for sentiment classification using domain-specific data, achieving superior accuracy compared to traditional LSTM and CNN models.
+  - **Job Seniority Prediction:** Built a BERT-based classifier to predict job seniority levels from job descriptions with high precision.
+
+**Tools Used:** TensorFlow, PyTorch, Hugging Face
+
+### Random Forest.ipynb
+- **Objective:** Predict flight disruptions (cancellations, diversions, delays) using flight data from 2018 to 2022 in the USA.
+- **Methods:** Built a Random Forest model to predict flight disruption outcomes.
+- **Data Source:** [Flight Delay Dataset (2018-2022)](https://www.kaggle.com/datasets/robikscube/flight-delay-dataset-20182022)
+
+### Crab Age.Rmd
+- **Objective:** Predict crab age using dimensionality reduction and clustering techniques.
+- **Methods:** Employed PCA, k-means clustering, and decision tree modeling to analyze the dataset.
+- **Data Source:** [Crab Age Prediction Dataset](https://www.kaggle.com/datasets/sidhus/crab-age-prediction/data)
+
+---
 
 
 
