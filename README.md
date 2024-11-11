@@ -2,7 +2,7 @@ Welcome to the `Machine-Learning` repository!
 ## Files
 
 ### NLP Projects
-This folder contains multiple NLP works from UC Berkeley's CS288 and Info 256 courses.
+This folder contains multiple NLP works from UC Berkeley's CS288 and Info256 courses.
 
 - **Project 1: Neural POS Tagging (CS288)**  
   Developed a BiLSTM-based Part-of-Speech (POS) tagger for grammatical structure prediction. Optimized performance compared to traditional HMM-based models.
