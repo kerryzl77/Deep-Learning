@@ -17,9 +17,9 @@ This folder contains multiple NLP works from UC Berkeley's CS288 and Info256 cou
   - **Sentiment Classification:** Fine-tuned a BERT model for sentiment classification using domain-specific data, achieving superior accuracy compared to traditional LSTM and CNN models.
   - **Job Seniority Prediction:** Built a BERT-based classifier to predict job seniority levels from job descriptions with high precision.
 
-- **DeepAR M5 Retail Sales Forecasting:**
-  - **Project Overview:** PyTorch-based implementation of DeepAR for multi-store sales prediction. Training on store-category level data with 90-day encoder, 28-day prediction window. 
-  - **Model Features & Configuration:** LSTM architecture with 2 RNN layers and NormalDistributionLoss for probabilistic forecasting.
+### DeepAR M5 Retail Sales Forecasting
+- **Project Overview:** PyTorch-based implementation of DeepAR for multi-store sales prediction. Training on store-category level data with 90-day encoder, 28-day prediction window. 
+- **Model Features & Configuration:** LSTM architecture with 2 RNN layers and NormalDistributionLoss for probabilistic forecasting.
 
 **Tools Used:** TensorFlow, PyTorch, Hugging Face
 
