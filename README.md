@@ -20,6 +20,7 @@ This folder contains multiple NLP works from UC Berkeley's CS288 and Info256 cou
 ### DeepAR M5 Retail Sales Forecasting
 - **Project Overview:** PyTorch-based implementation of DeepAR for multi-store sales prediction. Training on store-category level data with 90-day encoder, 28-day prediction window. 
 - **Model Features & Configuration:** LSTM architecture with 2 RNN layers and NormalDistributionLoss for probabilistic forecasting.
+- **Data Source:** [The M5 Competition Dataset (2011-2016)](https://www.kaggle.com/competitions/m5-forecasting-accuracy)
 
 **Tools Used:** TensorFlow, PyTorch, Hugging Face
 
