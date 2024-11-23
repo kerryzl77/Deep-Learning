@@ -1,4 +1,3 @@
-Welcome to the `Machine-Learning` repository! 
 ## Files
 
 ### NLP Projects
