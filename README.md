@@ -1,18 +1,17 @@
 ## Files
 
 ### NLP Projects
-This folder contains multiple NLP works from UC Berkeley's CS288 and Info256 courses.
-
-- **Project 1: Neural POS Tagging (CS288)**  
+This folder contains multiple NLP works from scratch. 
+- **Project 1: Neural POS Tagging**  
   Developed a BiLSTM-based Part-of-Speech (POS) tagger for grammatical structure prediction. Optimized performance compared to traditional HMM-based models.
 
-- **Project 2: English-German Translation (CS288)**  
+- **Project 2: English-German Translation**  
   Implemented two models for machine translation: N-gram and Seq2Seq LSTM with attention. The Seq2Seq model outperformed N-gram, especially for handling long-range dependencies.
 
-- **Project 3: POS Tagging and Constituency Parsing with Transformers (CS288)**  
+- **Project 3: POS Tagging and Constituency Parsing with Transformers**  
   Implemented a Transformer-based model for Part-of-Speech (POS) tagging and constituency parsing. The POS tagging achieved a best validation accuracy of **96.1%**, with the model checkpoint saved as `tagging_model.pt`. For parsing, the model `parsing_model.pt` predicts labeled spans and uses the CKY algorithm to convert predictions into full parse trees, reaching a validation F1-score of **87.01%**.
 
-- **Info 256 Projects:**
+- **NLP for Social Science Project:**
   - **Sentiment Classification:** Fine-tuned a BERT model for sentiment classification using domain-specific data, achieving superior accuracy compared to traditional LSTM and CNN models.
   - **Job Seniority Prediction:** Built a BERT-based classifier to predict job seniority levels from job descriptions with high precision.
 
